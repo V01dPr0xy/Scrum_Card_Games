@@ -2,15 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour
+{
+	public enum eDeckTupe { STANDARD, FULL, CUSTOM }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	List<int> m_cards;
 	
-	// Update is called once per frame
-	void Update () {
+
+	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null) //the list needs to be of cards
+	{
+		switch(type)
+		{
+			case eDeckTupe.STANDARD:
+				break;
+			case eDeckTupe.FULL:
+				break;
+			case eDeckTupe.CUSTOM:
+				break;
+		}
+	}
+
+	public void Shuffle()
+	{
+		List<int> deck = new List<int>();
+		int[] indexes = new int[m_cards.Count];
+
 		
 	}
 }
