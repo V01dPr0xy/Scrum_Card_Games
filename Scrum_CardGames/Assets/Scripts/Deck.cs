@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Deck : MonoBehaviour
 {
-	public enum eDeckTupe { STANDARD, FULL, CUSTOM }
+	public enum eDeckTupe { STANDARD, FULL, CUSTOM,  }
 
 	List<int> m_cards;
 
@@ -20,37 +21,35 @@ public class Deck : MonoBehaviour
 			case eDeckTupe.CUSTOM:
 				break;
 		}
+
 	}
 
-	public void Shuffle()
+	public List<int> Shuffle(List<int> starting)
 	{
+		if (starting == null) return null;
+
 		List<int> deck = new List<int>();
 		List<int> indexes = new List<int>();
 
-		foreach (int card in m_cards)
+		foreach (var card in starting)
 		{
-			while (true)
+			while(true)
 			{
-				int test = Random.Range(0, m_cards.Count - 1);
-				int misses = 0;
+				int test = Random.Range(0, starting.Count - 1);
 
-				foreach (int i in indexes)
-				{
-					if (i != test) ++misses;
-					else break;
-				}
-
- 				if(misses == indexes.Count)
+				if(!indexes.Contains(test))
 				{
 					indexes.Add(test);
-					deck.Add(m_cards[test]);
-				}
-
-				if(deck.Count == m_cards.Count)
-				{
 					break;
 				}
 			}
 		}
+
+		foreach(int i in indexes)
+		{
+			deck.Add(starting[i]);
+		}
+
+		return deck;
 	}
 }
