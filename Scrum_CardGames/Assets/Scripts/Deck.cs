@@ -7,17 +7,23 @@ public class Deck : MonoBehaviour
 {
 	public enum eDeckTupe { STANDARD, FULL, CUSTOM,  }
 
-	List<int> m_cards;
+	[SerializeField] GameObject m_cardBase = null;
+	List<Card> m_cards;
 
-
-	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null) //the list needs to be of cards
+	public List<Card> Cards { get { return m_cards; } }
+	
+	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
 	{
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
 				for(int i=0;i<14;i++)
 				{
-
+					for(int j = 0;j<4;j++)
+					{
+						GameObject card = Instantiate(m_cardBase);
+						//card.Init(i, j, );
+					}
 				}
 				break;
 			case eDeckTupe.FULL:
@@ -36,11 +42,11 @@ public class Deck : MonoBehaviour
 
 	}
 
-	public List<int> Shuffle(List<int> starting)
+	public List<Card> Shuffle(List<Card> starting)
 	{
 		if (starting == null) return null;
 
-		List<int> deck = new List<int>();
+		List<Card> deck = new List<Card>();
 		List<int> indexes = new List<int>();
 
 		foreach (var card in starting)
@@ -63,5 +69,19 @@ public class Deck : MonoBehaviour
 		}
 
 		return deck;
+	}
+
+	public void Deal(List<Card>[] points, List<Card> deck = null)
+	{
+		if (points == null || points.Length < 1) return;
+		if (deck == null) deck = Cards;
+
+		int index = 0;
+		foreach(Card c in deck)
+		{
+			if (index >= points.Length) index = 0;
+
+			points[index].Add(c);
+		}
 	}
 }
