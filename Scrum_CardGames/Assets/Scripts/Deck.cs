@@ -15,10 +15,22 @@ public class Deck : MonoBehaviour
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
+				for(int i=0;i<14;i++)
+				{
+
+				}
 				break;
 			case eDeckTupe.FULL:
+				for(int i=0;i<14;i++)
+				{
+
+				}
 				break;
 			case eDeckTupe.CUSTOM:
+				foreach(var value in included)
+				{
+
+				}
 				break;
 		}
 
