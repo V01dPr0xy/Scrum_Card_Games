@@ -27,27 +27,28 @@ public class Deck : MonoBehaviour
 		List<int> deck = new List<int>();
 		List<int> indexes = new List<int>();
 
-		//loop through cards
 		foreach (int card in m_cards)
 		{
-			//setup lock loop
 			while (true)
 			{
-				//generate random index
 				int test = Random.Range(0, m_cards.Count - 1);
 				int misses = 0;
-				//loop through indexes
+
 				foreach (int i in indexes)
 				{
-					//check if index is valid
 					if (i != test) ++misses;
 					else break;
 				}
-				//if true record index and add card[index] to new deck break from lock loop
-				if(misses == indexes.Count)
+
+ 				if(misses == indexes.Count)
 				{
 					indexes.Add(test);
+					deck.Add(m_cards[test]);
+				}
 
+				if(deck.Count == m_cards.Count)
+				{
+					break;
 				}
 			}
 		}
