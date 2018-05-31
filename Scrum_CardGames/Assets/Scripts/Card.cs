@@ -5,20 +5,25 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] public int Value;
+    [SerializeField] public eValues Value;
     [SerializeField] public Sprite Front;
     [SerializeField] public Sprite Back;
-
+    private Image m_CurrentFace;
     private bool m_faceUp = false;
 
-    public void Flip() { m_faceUp = !m_faceUp; }
-
-    private void ChangeTexture() { }
+    public void Flip()
+    {
+        m_faceUp = !m_faceUp;
+        if (m_CurrentFace.sprite.Equals(Front))
+            m_CurrentFace.sprite = Back;
+        else
+            m_CurrentFace.sprite = Front;
+    }
 
     // Use this for initialization
     void Start()
     {
-        GetComponent<Image>();
+        m_CurrentFace = gameObject.GetComponent<Image>();
     }
 
     // Update is called once per frame
