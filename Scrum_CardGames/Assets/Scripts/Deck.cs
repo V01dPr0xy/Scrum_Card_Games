@@ -1,4 +1,4 @@
-﻿using SFB;
+﻿//using SFB;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +17,6 @@ public class Deck : MonoBehaviour
 	
 	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
 	{
-		Texture2D texture = Resources.Load<Texture2D>(m_cardImages[0]);
-		Debug.Log(texture);
-
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
@@ -92,14 +89,14 @@ public class Deck : MonoBehaviour
 
 	public void Dropbox()
 	{
-		var extensions = new[] {
-			new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
-			new ExtensionFilter("Sound Files", "mp3", "wav" ),
-			new ExtensionFilter("All Files", "*" ),
-		};
+		//var extensions = new[] {
+		//	new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
+		//	new ExtensionFilter("Sound Files", "mp3", "wav" ),
+		//	new ExtensionFilter("All Files", "*" ),
+		//};
 
-		m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
+		//m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
 
-		Build();
+		//Build();
 	}
 }
