@@ -25,6 +25,9 @@ public class Card_Placement : MonoBehaviour {
             count++;
 
             m_Cards.Add(card);
+
+            card.transform.parent = gameObject.transform;
+            card.transform.localPosition = Vector3.zero;
             return true;
         }
         return false;
