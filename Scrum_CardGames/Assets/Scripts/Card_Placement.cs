@@ -6,7 +6,6 @@ public class Card_Placement : MonoBehaviour {
     /// <summary>
     /// Card Class is temporary, please remove once an actually card class/object has been made
     /// </summary>
-    public class Card { }
 
     [SerializeField] int m_MaxCardCount = 1;
 
@@ -26,6 +25,9 @@ public class Card_Placement : MonoBehaviour {
             count++;
 
             m_Cards.Add(card);
+
+            card.transform.parent = gameObject.transform;
+            card.transform.localPosition = Vector3.zero;
             return true;
         }
         return false;
