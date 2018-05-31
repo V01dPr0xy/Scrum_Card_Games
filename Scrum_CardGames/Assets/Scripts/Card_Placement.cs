@@ -6,7 +6,6 @@ public class Card_Placement : MonoBehaviour {
     /// <summary>
     /// Card Class is temporary, please remove once an actually card class/object has been made
     /// </summary>
-    public class Card { }
 
     [SerializeField] int m_MaxCardCount = 1;
 
