@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SFB;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class Deck : MonoBehaviour
 
 	[SerializeField] GameObject m_cardBase = null;
 	List<Card> m_cards;
+	string[] m_cardImages;
 
 	public List<Card> Cards { get { return m_cards; } }
 	
@@ -22,7 +24,11 @@ public class Deck : MonoBehaviour
 					for(int j = 0;j<4;j++)
 					{
 						GameObject card = Instantiate(m_cardBase);
-						//card.Init(i, j, );
+						Card piece = card.GetComponent<Card>();
+						if(piece)
+						{
+
+						}
 					}
 				}
 				break;
@@ -87,6 +93,13 @@ public class Deck : MonoBehaviour
 
 	public void Dropbox()
 	{
+		var extensions = new[] {
+		new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
+		new ExtensionFilter("Sound Files", "mp3", "wav" ),
+		new ExtensionFilter("All Files", "*" ),
+};
+		m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
 
+		Build();
 	}
 }
