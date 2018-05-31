@@ -84,4 +84,9 @@ public class Deck : MonoBehaviour
 			points[index].Add(c);
 		}
 	}
+
+	public void Dropbox()
+	{
+
+	}
 }
