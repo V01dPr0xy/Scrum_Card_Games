@@ -9,6 +9,7 @@ public class Deck : MonoBehaviour
 	public enum eDeckTupe { STANDARD, FULL, CUSTOM,  }
 
 	[SerializeField] GameObject m_cardBase = null;
+	[SerializeField] SpriteRenderer m_testBase = null;
 	List<Card> m_cards;
 	string[] m_cardImages;
 
@@ -16,6 +17,9 @@ public class Deck : MonoBehaviour
 	
 	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
 	{
+		Texture2D texture = Resources.Load<Texture2D>(m_cardImages[0]);
+		Debug.Log(texture);
+
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
@@ -23,12 +27,7 @@ public class Deck : MonoBehaviour
 				{
 					for(int j = 0;j<4;j++)
 					{
-						GameObject card = Instantiate(m_cardBase);
-						Card piece = card.GetComponent<Card>();
-						if(piece)
-						{
-
-						}
+					
 					}
 				}
 				break;
@@ -94,10 +93,11 @@ public class Deck : MonoBehaviour
 	public void Dropbox()
 	{
 		var extensions = new[] {
-		new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
-		new ExtensionFilter("Sound Files", "mp3", "wav" ),
-		new ExtensionFilter("All Files", "*" ),
-};
+			new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
+			new ExtensionFilter("Sound Files", "mp3", "wav" ),
+			new ExtensionFilter("All Files", "*" ),
+		};
+
 		m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
 
 		Build();
