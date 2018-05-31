@@ -1,5 +1,4 @@
-﻿using SFB;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -89,17 +88,5 @@ public class Deck : MonoBehaviour
 
 			points[index].Add(c);
 		}
-	}
-
-	public void Dropbox()
-	{
-		var extensions = new[] {
-		new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
-		new ExtensionFilter("Sound Files", "mp3", "wav" ),
-		new ExtensionFilter("All Files", "*" ),
-};
-		m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
-
-		Build();
-	}
+	}    
 }
