@@ -9,9 +9,8 @@ public class Deck : MonoBehaviour
 	public enum eDeckTupe { STANDARD, FULL, CUSTOM,  }
 
 	[SerializeField] GameObject m_cardBase = null;
-	[SerializeField] SpriteRenderer m_testBase = null;
 	List<Card> m_cards;
-	string[] m_cardImages;
+	Sprite[] m_cardImages;
 
 	public List<Card> Cards { get { return m_cards; } }
 	
@@ -24,7 +23,14 @@ public class Deck : MonoBehaviour
 				{
 					for(int j = 0;j<4;j++)
 					{
-					
+						GameObject go = Instantiate(m_cardBase);
+						Card card = go.GetComponent<Card>();
+
+						if(card)
+						{
+							card.Value = (eValues)i;
+							
+						}
 					}
 				}
 				break;
