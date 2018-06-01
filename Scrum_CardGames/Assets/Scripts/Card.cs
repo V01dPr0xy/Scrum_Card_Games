@@ -11,6 +11,13 @@ public class Card : MonoBehaviour
     private Image m_CurrentFace;
     private bool m_faceUp = false;
 
+    public void Initialize(eValues value, Sprite front, Sprite back)
+    {
+        Value = value;
+        Front = front;
+        Back = back;
+    }
+
     public void Flip()
     {
         m_faceUp = !m_faceUp;
