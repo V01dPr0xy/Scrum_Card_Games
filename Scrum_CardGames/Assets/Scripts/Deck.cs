@@ -15,13 +15,13 @@ public class Deck : MonoBehaviour
 
 	public List<Card> Cards { get { return m_cards; } }
 
-	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
+	public void Build(eDeckType type = eDeckType.STANDARD, List<int> included = null)
 	{
 		m_cards = new List<Card>();
 
 		switch (type)
 		{
-			case eDeckTupe.STANDARD:
+			case eDeckType.STANDARD:
 				for (int i = 0; i < 52; i++)
 				{
 					GameObject go = Instantiate(m_cardBase, gameObject.transform);
@@ -37,7 +37,7 @@ public class Deck : MonoBehaviour
 					}
 				}
 				break;
-			case eDeckTupe.FULL:
+			case eDeckType.FULL:
 				for (int i = 0; i < 52; i++)
 				{
 					GameObject go = Instantiate(m_cardBase);
@@ -53,7 +53,7 @@ public class Deck : MonoBehaviour
 					}
 				}
 				break;
-			case eDeckTupe.CUSTOM:
+			case eDeckType.CUSTOM:
 				for(int i = 0;i<included.Count;i++)
 				{
 					GameObject go = Instantiate(m_cardBase);
