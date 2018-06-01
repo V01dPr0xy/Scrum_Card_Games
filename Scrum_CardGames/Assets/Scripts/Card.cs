@@ -16,12 +16,14 @@ public class Card : MonoBehaviour
         Value = value;
         Front = front;
         Back = back;
-    }
+
+		m_CurrentFace.sprite = Back;
+	}
 
     public void Flip()
     {
         m_faceUp = !m_faceUp;
-        if (m_CurrentFace.sprite.Equals(Front))
+        if (!m_faceUp)
             m_CurrentFace.sprite = Back;
         else
             m_CurrentFace.sprite = Front;

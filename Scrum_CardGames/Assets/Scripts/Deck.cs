@@ -29,9 +29,7 @@ public class Deck : MonoBehaviour
 
 					if (card)
 					{
-						card.Value = (eValues)i;
-						card.Front = m_cardImages[i];
-						card.Back = m_cardBack;
+						card.Initialize((eValues)i, m_cardImages[i], m_cardBack);
 
 						m_cards.Add(card);
 					}
@@ -45,9 +43,7 @@ public class Deck : MonoBehaviour
 
 					if (card)
 					{
-						card.Value = (eValues)i;
-						card.Front = m_cardImages[i];
-						card.Back = m_cardBack;
+						card.Initialize((eValues)i, m_cardImages[i], m_cardBack);
 
 						m_cards.Add(card);
 					}
@@ -61,9 +57,7 @@ public class Deck : MonoBehaviour
 
 					if (card)
 					{
-						card.Value = (eValues)i;
-						card.Front = m_cardImages[i];
-						card.Back = m_cardBack;
+						card.Initialize((eValues)i, m_cardImages[i], m_cardBack);
 
 						m_cards.Add(card);
 					}
