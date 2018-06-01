@@ -6,42 +6,41 @@ using UnityEngine.UI;
 
 public class Deck : MonoBehaviour
 {
-	public enum eDeckTupe { STANDARD, FULL, CUSTOM,  }
+	public enum eDeckTupe { STANDARD, FULL, CUSTOM, }
 
 	[SerializeField] GameObject m_cardBase = null;
 	List<Card> m_cards;
-	Sprite[] m_cardImages;
+	[SerializeField] Sprite[] m_cardImages;
+	[SerializeField] Sprite m_cardBack;
 
 	public List<Card> Cards { get { return m_cards; } }
-	
+
 	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
 	{
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
-				for(int i=0;i<14;i++)
+				for (int i = 0; i < 52; i++)
 				{
-					for(int j = 0;j<4;j++)
-					{
-						GameObject go = Instantiate(m_cardBase);
-						Card card = go.GetComponent<Card>();
+					GameObject go = Instantiate(m_cardBase);
+					Card card = go.GetComponent<Card>();
 
-						if(card)
-						{
-							card.Value = (eValues)i;
-							
-						}
+					if (card)
+					{
+						card.Value = (eValues)i;
+						card.Front = m_cardImages[i];
+						card.Back = m_cardBack;
 					}
 				}
 				break;
 			case eDeckTupe.FULL:
-				for(int i=0;i<14;i++)
+				for (int i = 0; i < 14; i++)
 				{
 
 				}
 				break;
 			case eDeckTupe.CUSTOM:
-				foreach(var value in included)
+				foreach (var value in included)
 				{
 
 				}
@@ -59,11 +58,11 @@ public class Deck : MonoBehaviour
 
 		foreach (var card in starting)
 		{
-			while(true)
+			while (true)
 			{
 				int test = Random.Range(0, starting.Count - 1);
 
-				if(!indexes.Contains(test))
+				if (!indexes.Contains(test))
 				{
 					indexes.Add(test);
 					break;
@@ -71,7 +70,7 @@ public class Deck : MonoBehaviour
 			}
 		}
 
-		foreach(int i in indexes)
+		foreach (int i in indexes)
 		{
 			deck.Add(starting[i]);
 		}
@@ -85,7 +84,7 @@ public class Deck : MonoBehaviour
 		if (deck == null) deck = Cards;
 
 		int index = 0;
-		foreach(Card c in deck)
+		foreach (Card c in deck)
 		{
 			if (index >= points.Length) index = 0;
 
@@ -103,6 +102,6 @@ public class Deck : MonoBehaviour
 
 		//m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
 
-		//Build();
+		Build();
 	}
 }
