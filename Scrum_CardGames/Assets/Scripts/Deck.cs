@@ -30,19 +30,41 @@ public class Deck : MonoBehaviour
 						card.Value = (eValues)i;
 						card.Front = m_cardImages[i];
 						card.Back = m_cardBack;
+
+						m_cards.Add(card);
 					}
 				}
 				break;
 			case eDeckTupe.FULL:
-				for (int i = 0; i < 14; i++)
+				for (int i = 0; i < 52; i++)
 				{
+					GameObject go = Instantiate(m_cardBase);
+					Card card = go.GetComponent<Card>();
 
+					if (card)
+					{
+						card.Value = (eValues)i;
+						card.Front = m_cardImages[i];
+						card.Back = m_cardBack;
+
+						m_cards.Add(card);
+					}
 				}
 				break;
 			case eDeckTupe.CUSTOM:
-				foreach (var value in included)
+				for(int i = 0;i<included.Count;i++)
 				{
+					GameObject go = Instantiate(m_cardBase);
+					Card card = go.GetComponent<Card>();
 
+					if (card)
+					{
+						card.Value = (eValues)i;
+						card.Front = m_cardImages[i];
+						card.Back = m_cardBack;
+
+						m_cards.Add(card);
+					}
 				}
 				break;
 		}
