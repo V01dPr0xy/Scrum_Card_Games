@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Deck : MonoBehaviour
 {
-	public enum eDeckTupe { STANDARD, FULL, CUSTOM, }
+	public enum eDeckType { STANDARD, FULL, CUSTOM, }
 
 	[SerializeField] GameObject m_cardBase = null;
 	List<Card> m_cards;
@@ -17,12 +17,14 @@ public class Deck : MonoBehaviour
 
 	public void Build(eDeckTupe type = eDeckTupe.STANDARD, List<int> included = null)
 	{
+		m_cards = new List<Card>();
+
 		switch (type)
 		{
 			case eDeckTupe.STANDARD:
 				for (int i = 0; i < 52; i++)
 				{
-					GameObject go = Instantiate(m_cardBase);
+					GameObject go = Instantiate(m_cardBase, gameObject.transform);
 					Card card = go.GetComponent<Card>();
 
 					if (card)
