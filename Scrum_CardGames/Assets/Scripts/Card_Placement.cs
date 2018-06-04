@@ -64,4 +64,17 @@ public class Card_Placement : MonoBehaviour {
 
         return null;
     }
+
+    public void Shuffle()
+    {
+        List<Card> newOrder = new List<Card>();
+
+        while (m_Cards.Count > 0)
+        {
+            int spot = Random.Range(0, m_Cards.Count - 1);
+            Card nextCard = m_Cards[spot];
+            m_Cards.RemoveAt(spot);
+            newOrder.Add(nextCard);
+        }
+    }
 }

@@ -25,7 +25,6 @@ public class Deck : MonoBehaviour
 			case eDeckType.STANDARD:
 				for (int i = 0; i < m_cardValues.Length; i++)
 				{
-					Debug.Log(i);
 					GameObject go = Instantiate(m_cardBase, gameObject.transform);
 					Card card = go.GetComponent<Card>();
 
@@ -74,17 +73,28 @@ public class Deck : MonoBehaviour
 		if (starting == null) return null;
 
 		List<Card> deck = new List<Card>();
-        int length = starting.Count;
+		List<int> indexes = new List<int>();
 
-        for (int i = 0; i < length; i++)
-        {
-            int random = Random.Range(0, starting.Count - 1);
-            Card randomCard = starting[random];
-            deck.Add(randomCard);
-            starting.RemoveAt(random);
-        }
+		for (int i = 0; i < starting.Count; i++)
+		{
+			indexes.Add(i);
+		}
+
+		while(indexes.Count > 0)
+		{
+			int index = Random.Range(0, indexes.Count);
+
+			deck.Add(starting[indexes[index]]);
+
+			indexes.RemoveAt(index);
+		}
 
 		return deck;
+	}
+
+	public void ShuffleThis()
+	{
+		m_cards = Shuffle(m_cards);
 	}
 
 	public void Deal(List<Card>[] points, List<Card> deck = null)
