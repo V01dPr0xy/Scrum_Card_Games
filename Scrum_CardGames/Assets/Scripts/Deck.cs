@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
 	public enum eDeckType { STANDARD, FULL, CUSTOM, }
 
 	[SerializeField] GameObject m_cardBase = null;
-	List<Card> m_cards;
+	public List<Card> m_cards;
 	[SerializeField] Sprite[] m_cardImages;
 	[SerializeField] int[] m_cardValues;
 	[SerializeField] Sprite m_cardBack;
@@ -25,7 +25,6 @@ public class Deck : MonoBehaviour
 			case eDeckType.STANDARD:
 				for (int i = 0; i < m_cardValues.Length; i++)
 				{
-					Debug.Log(i);
 					GameObject go = Instantiate(m_cardBase, gameObject.transform);
 					Card card = go.GetComponent<Card>();
 
@@ -76,26 +75,26 @@ public class Deck : MonoBehaviour
 		List<Card> deck = new List<Card>();
 		List<int> indexes = new List<int>();
 
-		foreach (var card in starting)
+		for (int i = 0; i < starting.Count; i++)
 		{
-			while (true)
-			{
-				int test = Random.Range(0, starting.Count - 1);
-
-				if (!indexes.Contains(test))
-				{
-					indexes.Add(test);
-					break;
-				}
-			}
+			indexes.Add(i);
 		}
 
-		foreach (int i in indexes)
+		while(indexes.Count > 0)
 		{
-			deck.Add(starting[i]);
+			int index = Random.Range(0, indexes.Count);
+
+			deck.Add(starting[indexes[index]]);
+
+			indexes.RemoveAt(index);
 		}
 
 		return deck;
+	}
+
+	public void ShuffleThis()
+	{
+		m_cards = Shuffle(m_cards);
 	}
 
 	public void Deal(List<Card>[] points, List<Card> deck = null)
