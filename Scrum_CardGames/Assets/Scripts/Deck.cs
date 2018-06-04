@@ -11,6 +11,7 @@ public class Deck : MonoBehaviour
 	[SerializeField] GameObject m_cardBase = null;
 	List<Card> m_cards;
 	[SerializeField] Sprite[] m_cardImages;
+	[SerializeField] int[] m_cardValues;
 	[SerializeField] Sprite m_cardBack;
 
 	public List<Card> Cards { get { return m_cards; } }
@@ -22,7 +23,7 @@ public class Deck : MonoBehaviour
 		switch (type)
 		{
 			case eDeckType.STANDARD:
-				for (int i = 0; i < 52; i++)
+				for (int i = 0; i < m_cardValues.Length; i++)
 				{
 					Debug.Log(i);
 					GameObject go = Instantiate(m_cardBase, gameObject.transform);
@@ -30,7 +31,7 @@ public class Deck : MonoBehaviour
 
 					if (card)
 					{
-						card.Initialize((eValues)i, m_cardImages[i], m_cardBack);
+						card.Initialize((eValues)m_cardValues[i], m_cardImages[i], m_cardBack);
 
 						m_cards.Add(card);
 					}
