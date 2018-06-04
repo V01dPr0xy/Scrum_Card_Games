@@ -33,9 +33,8 @@ public class Card : MonoBehaviour
         m_CurrentFace = gameObject.GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+	public override string ToString()
+	{
+		return Value.ToString();
+	}
 }
