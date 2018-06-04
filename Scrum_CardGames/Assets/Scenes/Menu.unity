@@ -264,8 +264,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: BlackJackScene
+      - m_Target: {fileID: 1529559136}
+        m_MethodName: loadJack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -791,8 +791,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: GoFishScene
+      - m_Target: {fileID: 1529559136}
+        m_MethodName: loadFish
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -961,8 +961,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: WarScene
+      - m_Target: {fileID: 1529559136}
+        m_MethodName: loadWar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 1529559132}
   - component: {fileID: 1529559131}
   - component: {fileID: 1529559135}
+  - component: {fileID: 1529559136}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1171,6 +1172,17 @@ MonoBehaviour:
   bJackTxt: {fileID: 499277743}
   pokerTxt: {fileID: 7858106}
   gFishTxt: {fileID: 873564803}
+--- !u!114 &1529559136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1529559130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f63cb6b098801548ad80735da24cbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1762743191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,8 +1482,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: PokerScene
+      - m_Target: {fileID: 1529559136}
+        m_MethodName: loadPoker
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
