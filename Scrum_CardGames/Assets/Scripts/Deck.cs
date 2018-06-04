@@ -24,6 +24,7 @@ public class Deck : MonoBehaviour
 			case eDeckType.STANDARD:
 				for (int i = 0; i < 52; i++)
 				{
+					Debug.Log(i);
 					GameObject go = Instantiate(m_cardBase, gameObject.transform);
 					Card card = go.GetComponent<Card>();
 
@@ -112,14 +113,6 @@ public class Deck : MonoBehaviour
 
 	public void Dropbox()
 	{
-		//var extensions = new[] {
-		//	new ExtensionFilter("Image Files", "png", "jpg", "jpeg" ),
-		//	new ExtensionFilter("Sound Files", "mp3", "wav" ),
-		//	new ExtensionFilter("All Files", "*" ),
-		//};
-
-		//m_cardImages = StandaloneFileBrowser.OpenFilePanel("Open File", "", extensions, true);
-
 		Build();
 	}
 }
