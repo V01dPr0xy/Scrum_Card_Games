@@ -68,6 +68,7 @@ public class Deck : MonoBehaviour
 
 	}
 
+	//SHuffle that does not alter the original
 	public List<Card> Shuffle(List<Card> starting)
 	{
 		if (starting == null) return null;
