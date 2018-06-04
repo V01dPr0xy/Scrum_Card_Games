@@ -74,26 +74,15 @@ public class Deck : MonoBehaviour
 		if (starting == null) return null;
 
 		List<Card> deck = new List<Card>();
-		List<int> indexes = new List<int>();
+        int length = starting.Count;
 
-		foreach (var card in starting)
-		{
-			while (true)
-			{
-				int test = Random.Range(0, starting.Count - 1);
-
-				if (!indexes.Contains(test))
-				{
-					indexes.Add(test);
-					break;
-				}
-			}
-		}
-
-		foreach (int i in indexes)
-		{
-			deck.Add(starting[i]);
-		}
+        for (int i = 0; i < length; i++)
+        {
+            int random = Random.Range(0, starting.Count - 1);
+            Card randomCard = starting[random];
+            deck.Add(randomCard);
+            starting.RemoveAt(random);
+        }
 
 		return deck;
 	}
