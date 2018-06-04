@@ -37,7 +37,6 @@ public class Card_Placement : MonoBehaviour {
     {
         if (count > 0)
         {
-
             m_Cards.Reverse();
 
             Card toReturn = m_Cards[0];
@@ -76,5 +75,7 @@ public class Card_Placement : MonoBehaviour {
             m_Cards.RemoveAt(spot);
             newOrder.Add(nextCard);
         }
+
+        m_Cards = newOrder;
     }
 }
