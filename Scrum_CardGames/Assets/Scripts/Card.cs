@@ -16,8 +16,6 @@ public class Card : MonoBehaviour
         Value = value;
         Front = front;
         Back = back;
-
-		m_CurrentFace.sprite = Back;
 	}
 
     public void Flip()
