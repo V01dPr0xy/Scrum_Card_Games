@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
 	public enum eDeckType { STANDARD, FULL, CUSTOM, }
 
 	[SerializeField] GameObject m_cardBase = null;
-	public List<Card> m_cards;
+	List<Card> m_cards;
 	[SerializeField] Sprite[] m_cardImages;
 	[SerializeField] int[] m_cardValues;
 	[SerializeField] Sprite m_cardBack;
@@ -68,6 +68,7 @@ public class Deck : MonoBehaviour
 
 	}
 
+	//SHuffle that does not alter the original
 	public List<Card> Shuffle(List<Card> starting)
 	{
 		if (starting == null) return null;
