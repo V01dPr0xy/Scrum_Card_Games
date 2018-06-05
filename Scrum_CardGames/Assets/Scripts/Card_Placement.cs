@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,12 @@ public class Card_Placement : MonoBehaviour {
 
     private void Start()
     {
+        m_Cards = new List<Card>();
+    }
+
+    public void Init()
+    {
+        count = 0;
         m_Cards = new List<Card>();
     }
 
@@ -70,12 +77,24 @@ public class Card_Placement : MonoBehaviour {
 
         while (m_Cards.Count > 0)
         {
-            int spot = Random.Range(0, m_Cards.Count - 1);
-            Card nextCard = m_Cards[spot];
-            m_Cards.RemoveAt(spot);
-            newOrder.Add(nextCard);
+            int ranIndex = UnityEngine.Random.Range(0, m_Cards.Count);
+            newOrder.Add(TakeAtIndex(ranIndex));
         }
 
-        m_Cards = newOrder;
+        foreach (Card c in newOrder)
+        {
+            GiveCard(c);
+        }
+
+    }
+
+    public void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        Init();
     }
 }
