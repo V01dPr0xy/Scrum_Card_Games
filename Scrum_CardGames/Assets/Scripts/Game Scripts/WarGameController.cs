@@ -127,28 +127,28 @@ public class WarGameController : MonoBehaviour {
                 WarCount++;
 
                 Card POne1 = P1Deck.TakeFromTop();
-                Card POne2 = P1Deck.TakeFromTop();
+                //Card POne2 = P1Deck.TakeFromTop();
                 Card POne3 = P1Deck.TakeFromTop();
 
                 Card PTwo1 = P2Deck.TakeFromTop();
-                Card PTwo2 = P2Deck.TakeFromTop();
+                //Card PTwo2 = P2Deck.TakeFromTop();
                 Card PTwo3 = P2Deck.TakeFromTop();
 
                 P1War.GiveCard(POne1);
-                P1War.GiveCard(POne2);
+                //P1War.GiveCard(POne2);
                 P1War.GiveCard(POne3);
 
                 P2War.GiveCard(PTwo1);
-                P2War.GiveCard(PTwo2);
+                //P2War.GiveCard(PTwo2);
                 P2War.GiveCard(PTwo3);
 
-                POne1.transform.localPosition += new Vector3(0, 15, 0) + (new Vector3(0, 45, 0) * (WarCount - 1));
-                POne2.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
-                POne3.transform.localPosition += new Vector3(0, 15, 0) * 3 + (new Vector3(0, 45, 0) * (WarCount - 1));
+                POne1.transform.localPosition += new Vector3(0, 15, 0) + (new Vector3(0, 30, 0) * (WarCount - 1));
+                //POne2.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
+                POne3.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 30, 0) * (WarCount - 1));
 
-                PTwo1.transform.localPosition -= new Vector3(0, 15, 0) + (new Vector3(0, 45, 0) * (WarCount - 1));
-                PTwo2.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
-                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 3 + (new Vector3(0, 45, 0) * (WarCount - 1));
+                PTwo1.transform.localPosition -= new Vector3(0, 15, 0) + (new Vector3(0, 30, 0) * (WarCount - 1));
+                //PTwo2.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
+                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 30, 0) * (WarCount - 1));
 
                 POne3.Flip();
                 PTwo3.Flip();

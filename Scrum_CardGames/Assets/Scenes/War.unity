@@ -2562,6 +2562,8 @@ MonoBehaviour:
   P2Deck: {fileID: 444956845}
   P1War: {fileID: 1215108193}
   P2War: {fileID: 1678634765}
+  P1CardCount: {fileID: 121917098}
+  P2CardCount: {fileID: 1861521478}
   m_Deck: {fileID: 1099975055}
 --- !u!4 &1807062265
 Transform:
