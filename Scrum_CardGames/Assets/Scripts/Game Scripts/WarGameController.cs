@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class WarGameController : MonoBehaviour {
 
     [SerializeField] GameObject WinTXT;
-    [SerializeField] GameObject WinTXTp1;
-    [SerializeField] GameObject WinTXTp2;
+    [SerializeField] Text WinTXTp1;
+    [SerializeField] Text WinTXTp2;
 
     [SerializeField] Card_Placement P1Deck;
     [SerializeField] Card_Placement P2Deck;
@@ -16,8 +16,17 @@ public class WarGameController : MonoBehaviour {
     [SerializeField] Card_Placement P1War;
     [SerializeField] Card_Placement P2War;
 
+    [SerializeField] Card_Placement P1Discard;
+    [SerializeField] Card_Placement P2Discard;
+
     [SerializeField] Text P1CardCount;
     [SerializeField] Text P2CardCount;
+
+    [SerializeField] Text P1DiscardCount;
+    [SerializeField] Text P2DiscardCount;
+
+    [SerializeField] Text P1NameBox;
+    [SerializeField] Text P2NameBox;
 
     [SerializeField] Deck m_Deck;
 
@@ -27,10 +36,37 @@ public class WarGameController : MonoBehaviour {
     bool IsWar = false;
     int WarCount = 0;
 
+    string PlayerOneName = "Player One";
+    string PlayerTwoName = "Player Two";
+
     public void Update()
     {
+        if (IsWar) return;
+
         if (Input.GetKey(KeyCode.Space))
             NextRound();
+    }
+
+    public void TextBoxP1Change()
+    {
+        string name = P1NameBox.text;
+
+        if (name == "") name = "Player One";
+
+        PlayerOneName = name;
+
+        UpdatePlayerCardCounts();
+    }
+
+    public void TextBoxP2Change()
+    {
+        string name = P2NameBox.text;
+
+        if (name == "") name = "Player Two";
+
+        PlayerTwoName = name;
+
+        UpdatePlayerCardCounts();
     }
 
     public void newGame()
@@ -38,13 +74,15 @@ public class WarGameController : MonoBehaviour {
         GameEnd = false;
 
         WinTXT.SetActive(false);
-        WinTXTp1.SetActive(false);
-        WinTXTp2.SetActive(false);
+        WinTXTp1.gameObject.SetActive(false);
+        WinTXTp2.gameObject.SetActive(false);
 
         P1Deck.Clear();
         P2Deck.Clear();
         P1War.Clear();
         P2War.Clear();
+        P1Discard.Clear();
+        P2Discard.Clear();
 
         m_Deck.Dropbox();
         m_Deck.Shuffle(m_Deck.Cards);
@@ -78,16 +116,19 @@ public class WarGameController : MonoBehaviour {
     {
         //odd game aspect patch.
         WinTXT.SetActive(false);
-        WinTXTp1.SetActive(false);
-        WinTXTp2.SetActive(false);
+        WinTXTp1.gameObject.SetActive(false);
+        WinTXTp2.gameObject.SetActive(false);
 
-        P1CardCount.text = "Player 1\n" +
+        P1CardCount.text = PlayerOneName +"'s\n" +
                            "Hand Count\n" +
                            P1Deck.m_Cards.Count;
 
-        P2CardCount.text = "Player 2\n" +
+        P2CardCount.text = PlayerTwoName+"'s\n" +
                            "Hand Count\n" +
                            P2Deck.m_Cards.Count;
+
+        P1DiscardCount.text = "" + P1Discard.m_Cards.Count;
+        P2DiscardCount.text = "" + P2Discard.m_Cards.Count;
 
     }
 
@@ -100,16 +141,12 @@ public class WarGameController : MonoBehaviour {
             while (P1War.m_Cards.Count > 0)
             {
                 Card card = P1War.TakeFromTop();
-                card.m_faceUp = true;
-                card.Flip();
                 m_winningDeck.GiveCard(card);
             }
 
             while (P2War.m_Cards.Count > 0)
             {
                 Card card = P2War.TakeFromTop();
-                card.m_faceUp = true;
-                card.Flip();
                 m_winningDeck.GiveCard(card);
             }
             UpdatePlayerCardCounts();
@@ -126,37 +163,85 @@ public class WarGameController : MonoBehaviour {
             {
                 WarCount++;
 
+                if (P1Deck.m_Cards.Count < 4)
+                {
+                    ReShuffleIn(P1Deck, P1Discard);
+
+                    if (P1Deck.m_Cards.Count < 4)
+                    {
+                        GameWin(true);
+                        return;
+                    }
+                }
+                if (P2Deck.m_Cards.Count < 4)
+                {
+                    ReShuffleIn(P2Deck, P2Discard);
+
+                    if (P2Deck.m_Cards.Count < 4)
+                    {
+                        GameWin(false);
+                        return;
+                    }
+                }
+
                 Card POne1 = P1Deck.TakeFromTop();
-                //Card POne2 = P1Deck.TakeFromTop();
+                Card POne2 = P1Deck.TakeFromTop();
                 Card POne3 = P1Deck.TakeFromTop();
+                Card POne4 = P1Deck.TakeFromTop();
 
                 Card PTwo1 = P2Deck.TakeFromTop();
-                //Card PTwo2 = P2Deck.TakeFromTop();
+                Card PTwo2 = P2Deck.TakeFromTop();
                 Card PTwo3 = P2Deck.TakeFromTop();
+                Card PTwo4 = P2Deck.TakeFromTop();
 
                 P1War.GiveCard(POne1);
-                //P1War.GiveCard(POne2);
+                P1War.GiveCard(POne2);
                 P1War.GiveCard(POne3);
+                P1War.GiveCard(POne4);
 
                 P2War.GiveCard(PTwo1);
-                //P2War.GiveCard(PTwo2);
+                P2War.GiveCard(PTwo2);
                 P2War.GiveCard(PTwo3);
+                P2War.GiveCard(PTwo4);
 
-                POne1.transform.localPosition += new Vector3(0, 15, 0) + (new Vector3(0, 30, 0) * (WarCount - 1));
-                //POne2.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
-                POne3.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 30, 0) * (WarCount - 1));
+                POne1.transform.localPosition += new Vector3(0, 15, 0) + (new Vector3(0, 60, 0) * (WarCount - 1));
+                POne2.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                POne3.transform.localPosition += new Vector3(0, 15, 0) * 3 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                POne4.transform.localPosition += new Vector3(0, 15, 0) * 4 + (new Vector3(0, 60, 0) * (WarCount - 1));
 
-                PTwo1.transform.localPosition -= new Vector3(0, 15, 0) + (new Vector3(0, 30, 0) * (WarCount - 1));
-                //PTwo2.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 45, 0) * (WarCount - 1));
-                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 30, 0) * (WarCount - 1));
+                PTwo1.transform.localPosition -= new Vector3(0, 15, 0) + (new Vector3(0, 60, 0) * (WarCount - 1));
+                PTwo2.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 3 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                PTwo4.transform.localPosition -= new Vector3(0, 15, 0) * 4 + (new Vector3(0, 60, 0) * (WarCount - 1));
 
-                POne3.Flip();
-                PTwo3.Flip();
+                POne4.Flip();
+                PTwo4.Flip();
 
-                RoundWinCheck(POne3, PTwo3);
+                RoundWinCheck(POne4, PTwo4);
             }
             else
             {
+                if (P1Deck.m_Cards.Count < 1)
+                {
+                    ReShuffleIn(P1Deck, P1Discard);
+
+                    if (P1Deck.m_Cards.Count <= 3)
+                    { 
+                        GameWin(true);
+                        return;
+                    }
+                }
+                if (P2Deck.m_Cards.Count < 1)
+                {
+                    ReShuffleIn(P2Deck, P2Discard);
+
+                    if (P2Deck.m_Cards.Count <= 3)
+                    {
+                        GameWin(false);
+                        return;
+                    }
+                }
+
                 Card c1 = P1Deck.TakeFromTop();
                 Card c2 = P2Deck.TakeFromTop();
 
@@ -171,21 +256,38 @@ public class WarGameController : MonoBehaviour {
         catch (NullReferenceException)
         {
             UpdatePlayerCardCounts();
-            GameWin();
         }
     }
 
-    public void GameWin()
+    public void ReShuffleIn(Card_Placement deck, Card_Placement discard)
     {
-        if (P1Deck.m_Cards.Count == 0)
+        while (discard.m_Cards.Count > 0)
+        {
+            deck.GiveCard(discard.TakeFromTop());
+        }
+        deck.Shuffle();
+
+        foreach (Card c in deck.m_Cards)
+        {
+            if (c.m_faceUp)
+                c.Flip();
+        }
+        UpdatePlayerCardCounts();
+    }
+
+    public void GameWin(bool playerOne)
+    {
+        if (playerOne)
         {
             //player two Wins.
-            WinTXTp2.SetActive(true);
+            WinTXTp2.text = PlayerTwoName;
+            WinTXTp2.gameObject.SetActive(true);
         }
         else
         {
             //Player One Wins.
-            WinTXTp1.SetActive(true);
+            WinTXTp1.text = PlayerTwoName;
+            WinTXTp1.gameObject.SetActive(true);
         }
         WinTXT.SetActive(true);
         GameEnd = true;
@@ -199,8 +301,8 @@ public class WarGameController : MonoBehaviour {
         if (p1 == 0) p1 = 14;
         if (p2 == 0) p2 = 14;
 
-        if (p1 > p2) m_winningDeck = P1Deck;
-        else if (p2 > p1) m_winningDeck = P2Deck;
+        if (p1 > p2) m_winningDeck = P1Discard;
+        else if (p2 > p1) m_winningDeck = P2Discard;
         else
         {//war            
             m_winningDeck = null;
