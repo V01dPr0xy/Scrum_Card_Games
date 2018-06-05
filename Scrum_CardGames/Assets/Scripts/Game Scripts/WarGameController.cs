@@ -41,6 +41,8 @@ public class WarGameController : MonoBehaviour {
 
     public void Update()
     {
+        if (IsWar) return;
+
         if (Input.GetKey(KeyCode.Space))
             NextRound();
     }
@@ -204,13 +206,13 @@ public class WarGameController : MonoBehaviour {
 
                 POne1.transform.localPosition += new Vector3(0, 15, 0) + (new Vector3(0, 60, 0) * (WarCount - 1));
                 POne2.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
-                POne3.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
-                POne4.transform.localPosition += new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                POne3.transform.localPosition += new Vector3(0, 15, 0) * 3 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                POne4.transform.localPosition += new Vector3(0, 15, 0) * 4 + (new Vector3(0, 60, 0) * (WarCount - 1));
 
                 PTwo1.transform.localPosition -= new Vector3(0, 15, 0) + (new Vector3(0, 60, 0) * (WarCount - 1));
                 PTwo2.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
-                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
-                PTwo4.transform.localPosition -= new Vector3(0, 15, 0) * 2 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                PTwo3.transform.localPosition -= new Vector3(0, 15, 0) * 3 + (new Vector3(0, 60, 0) * (WarCount - 1));
+                PTwo4.transform.localPosition -= new Vector3(0, 15, 0) * 4 + (new Vector3(0, 60, 0) * (WarCount - 1));
 
                 POne4.Flip();
                 PTwo4.Flip();
