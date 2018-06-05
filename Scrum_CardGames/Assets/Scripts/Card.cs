@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
     [SerializeField] public Sprite Front;
     [SerializeField] public Sprite Back;
     private Image m_CurrentFace;
-    private bool m_faceUp = false;
+    public bool m_faceUp = false;
 
     public void Initialize(eValues value, Sprite front, Sprite back)
     {
