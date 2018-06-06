@@ -14,7 +14,7 @@ public class BlackJackGameController : MonoBehaviour
 	public int[] m_banks;
 
 	public int m_turn = 0;
-	int m_playerCount = 5;
+	public int m_playerCount = 5;
 
 	public void NewGame()
 	{
@@ -37,7 +37,7 @@ public class BlackJackGameController : MonoBehaviour
 			if (placeIndex >= m_playerCount) placeIndex -= m_playerCount;
 			m_playerSlots[i].transform.position = m_cycleSlots[placeIndex].position;
 
-			++m_playerCount;
+			++placeIndex;
 		}
 	}
 
