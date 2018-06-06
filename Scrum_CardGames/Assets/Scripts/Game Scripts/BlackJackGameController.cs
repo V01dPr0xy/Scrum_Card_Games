@@ -21,6 +21,7 @@ public class BlackJackGameController : MonoBehaviour
 
 	int[] m_bets;
 	int m_currentBet = 0;
+	bool m_phase = false;
 
 	public void NewGame()
 	{
@@ -52,7 +53,11 @@ public class BlackJackGameController : MonoBehaviour
 		{
 			++m_turn;
 
-			if (m_turn >= m_playerCount) m_turn -= m_playerCount;
+			if (m_turn >= m_playerCount)
+			{
+				HouseTurn();
+				m_turn -= m_playerCount;
+			}
 
 			int placeIndex = m_turn;
 			for (int i = 0; i < m_playerCount; i++)
@@ -63,6 +68,7 @@ public class BlackJackGameController : MonoBehaviour
 				++placeIndex;
 			}
 		} while (!m_players[m_turn].GetComponent<BJPlayer>().m_active);
+		
 	}
 
 	public void Hit()
@@ -70,22 +76,25 @@ public class BlackJackGameController : MonoBehaviour
 		Card hit = m_dealer.TakeFromTop();
 		hit.Flip();
 		m_players[m_turn].GetComponent<Player>().m_Hand.Add(hit);
-		CyclePlayer();
 	}
 
 	public void Stand()
 	{
-
+		CyclePlayer();
 	}
 
 	public void Fold()
 	{
+		m_bets[m_turn] = 0;
 
+		m_players[m_turn].GetComponent<BJPlayer>().m_active = false;
 	}
 
 	public void Double()
 	{
-
+		m_bets[m_turn] *= 2;
+		Hit();
+		Stand();
 	}
 
 	public void Split()
@@ -114,7 +123,7 @@ public class BJPlayer : Player
 	public float m_bank = 0.0f;
 	public bool m_active = true;
 
-	public float m_handValue = 0.0f;
+	public int m_handValue = 0;
 
 	BlackJackGameController bjcontrol;
 
@@ -123,17 +132,22 @@ public class BJPlayer : Player
 		bjcontrol = GetComponentInParent<BlackJackGameController>();
 	}
 
-	private void Update()
+	public void AddCard(Card newCard)
 	{
-		foreach(Card card in m_Hand)
+		foreach (Card card in m_Hand)
 		{
-			m_handValue += (int)card.Value;
+			if((eValues)m_handValue == eValues.Ace)
+			{
+
+			}
+			else m_handValue += (int)card.Value;
 		}
 
-		if(m_handValue >= 21)
+		if (m_handValue >= 21)
 		{
 			m_active = false;
 			bjcontrol.CyclePlayer();
 		}
+
 	}
 }
