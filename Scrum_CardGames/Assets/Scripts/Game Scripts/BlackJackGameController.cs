@@ -23,7 +23,7 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void NewGame()
 	{
-		foreach(GameObject child in transform)
+		foreach(Transform child in transform)
 		{
 			GameObject.Destroy(child.gameObject);
 		}
