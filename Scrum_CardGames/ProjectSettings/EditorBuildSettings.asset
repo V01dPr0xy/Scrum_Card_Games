@@ -11,3 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/War.unity
     guid: 47b82d2575be38245b6f056decbcec92
+  - enabled: 1
+    path: Assets/Scenes/Blackjack.unity
+    guid: 4e8326031b157514385d29f289896adf
+  - enabled: 1
+    path: Assets/Scenes/GoFish.unity
+    guid: e2c5adf86eddcb345a3b931d3d86519d
+  - enabled: 1
+    path: Assets/Scenes/Poker.unity
+    guid: 2e9a3953b37e6574290651ddfa97815d
