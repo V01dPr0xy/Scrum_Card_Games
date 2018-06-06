@@ -20,8 +20,8 @@ public class BlackJackGameController : MonoBehaviour
 	public int m_playerCount = 5;
 
 	int[] m_bets;
-	int m_currentBet = 0;
 	bool m_phase = false; //false for actions; true for bets
+	bool m_playerBetted = false;
 
 	public void NewGame()
 	{
@@ -49,7 +49,10 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void CyclePlayer()
 	{
+		
 		if (m_phase) BettingPhase();
+
+		m_currentBetTxt.text = m_bets[m_turn].ToString();
 
 		do
 		{
@@ -75,6 +78,14 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void BettingPhase()
 	{
+		for(int i=0;i < m_playerCount;i++)
+		{
+			while(!m_playerBetted)
+			{
+
+			}
+		}
+
 		m_phase = false;
 		CyclePlayer();
 	}
@@ -142,6 +153,9 @@ public class BJPlayer : Player
 
 	BlackJackGameController bjcontrol;
 
+	[SerializeField] Card_Placement[] m_standardPlaces; //0 - up; 1 - down
+	[SerializeField] Card_Placement[] m_splitPlaces;
+
 	private void Start()
 	{
 		bjcontrol = GetComponentInParent<BlackJackGameController>();
@@ -158,7 +172,6 @@ public class BJPlayer : Player
 		{
 			if((eValues)m_handValue == eValues.Ace)
 			{
-
 			}
 			else m_handValue += (int)card.Value;
 		}
@@ -168,6 +181,12 @@ public class BJPlayer : Player
 			m_active = false;
 			bjcontrol.CyclePlayer();
 		}
+		m_standardPlaces[0].GiveCard(newCard);
+
+	}
+
+	public void Split()
+	{
 
 	}
 }
