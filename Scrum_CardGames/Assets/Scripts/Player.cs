@@ -7,7 +7,12 @@ public class Player : MonoBehaviour
     public string m_Name;
     public List<Card> m_Hand;
 
-    public void ChangeName(string name)
+	private void Start()
+	{
+		m_Hand = new List<Card>();
+	}
+
+	public void ChangeName(string name)
     {
         m_Name = name;
     }
