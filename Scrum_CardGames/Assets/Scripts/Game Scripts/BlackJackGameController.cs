@@ -47,6 +47,11 @@ public class BlackJackGameController : MonoBehaviour
 		}
 	}
 
+	void Deal()
+	{
+
+	}
+
 	public void CyclePlayer()
 	{
 		
@@ -61,6 +66,7 @@ public class BlackJackGameController : MonoBehaviour
 			if (m_turn >= m_playerCount)
 			{
 				HouseTurn();
+				CalculateRoundWinnings();
 				m_turn -= m_playerCount;
 			}
 
@@ -76,19 +82,60 @@ public class BlackJackGameController : MonoBehaviour
 		
 	}
 
+	void CalculateRoundWinnings()
+	{
+		int house = m_house.GetComponent<BJPlayer>().m_handValue;
+
+		for(int i=0;i<m_playerCount;i++)
+		{
+			
+		}
+	}
+
 	public void BettingPhase()
 	{
 		for(int i=0;i < m_playerCount;i++)
 		{
+			m_turn = i;
 			while(!m_playerBetted)
 			{
-
+				m_currentPlayerTxt.text = m_players[m_turn].GetComponent<Player>().m_Name;
 			}
+
+			m_playerBetted = false;
 		}
 
 		m_phase = false;
 		CyclePlayer();
 	}
+
+	public void SmallBet()
+	{
+		if(m_phase)
+		{
+			m_playerBetted = true;
+			m_bets[m_turn] = 1;
+		}
+	}
+
+	public void MediumBet()
+	{
+		if (m_phase)
+		{
+			m_playerBetted = true;
+			m_bets[m_turn] = 5;
+		}
+	}
+
+	public void HardlBet()
+	{
+		if (m_phase)
+		{
+			m_playerBetted = true;
+			m_bets[m_turn] = 10;
+		}
+	}
+
 
 	public void Hit()
 	{
