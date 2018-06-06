@@ -45,11 +45,19 @@ public class BlackJackGameController : MonoBehaviour
 			m_players[i].GetComponent<BJPlayer>().m_bank = 20; 
 
 		}
+
+		Deal();
 	}
 
 	void Deal()
 	{
-
+		for (int j = 0; j < 2; j++)
+		{
+			for (int i = 0; i < m_playerCount; i++)
+			{
+				m_players[i].GetComponent<BJPlayer>().AddCard(m_dealer.TakeFromTop());
+			}
+		}
 	}
 
 	public void CyclePlayer()

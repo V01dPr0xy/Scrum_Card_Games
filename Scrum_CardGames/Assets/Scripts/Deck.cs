@@ -112,6 +112,23 @@ public class Deck : MonoBehaviour
 		}
 	}
 
+	public List<Card>[] Deal(int points, List<Card> deck = null)
+	{
+		if (points == 0) return null;
+		if (deck == null) deck = Cards;
+
+		int index = 0;
+		List<Card>[] toReturn = new List<Card>[points];
+		foreach (Card c in deck)
+		{
+			if (index >= points) index = 0;
+
+			toReturn[index].Add(c);
+		}
+
+		return toReturn;
+	}
+
 	public void Dropbox()
 	{
 		Build();
