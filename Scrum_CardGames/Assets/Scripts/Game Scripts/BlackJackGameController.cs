@@ -21,7 +21,7 @@ public class BlackJackGameController : MonoBehaviour
 
 	int[] m_bets;
 	int m_currentBet = 0;
-	bool m_phase = false;
+	bool m_phase = false; //false for actions; true for bets
 
 	public void NewGame()
 	{
@@ -49,6 +49,8 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void CyclePlayer()
 	{
+		if (m_phase) BettingPhase();
+
 		do
 		{
 			++m_turn;
@@ -69,6 +71,12 @@ public class BlackJackGameController : MonoBehaviour
 			}
 		} while (!m_players[m_turn].GetComponent<BJPlayer>().m_active);
 		
+	}
+
+	public void BettingPhase()
+	{
+		m_phase = false;
+		CyclePlayer();
 	}
 
 	public void Hit()
@@ -104,7 +112,14 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void HouseTurn()
 	{
+		while(m_house.GetComponent<BJPlayer>().m_handValue < 17)
+		{
+			Hit();
+		}
 
+		Stand();
+
+		m_phase = true;
 	}
 
 	public void OnNamePlayerChange()
@@ -130,6 +145,11 @@ public class BJPlayer : Player
 	private void Start()
 	{
 		bjcontrol = GetComponentInParent<BlackJackGameController>();
+	}
+
+	private void Update()
+	{
+		if (m_active && m_bank <= -50) m_active = false;
 	}
 
 	public void AddCard(Card newCard)
