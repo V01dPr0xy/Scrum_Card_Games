@@ -10,6 +10,7 @@ public class BlackJackGameController : MonoBehaviour
 	[SerializeField] Text m_currentPlayerTxt = null;
 
 	[SerializeField] Deck m_deck = null;
+	[SerializeField] Card_Placement m_dealer = null;
 	[SerializeField] Transform[] m_cycleSlots; //middle - out, clockwise turn
 	[SerializeField] GameObject m_playerBase = null;
 	[SerializeField] GameObject m_house;
@@ -30,6 +31,7 @@ public class BlackJackGameController : MonoBehaviour
 
 		m_deck.Build();
 		m_deck.ShuffleThis();
+		m_dealer.m_Cards = m_deck.m_cards;
 
 		m_playerCount = (int)m_playerMaker.value;
 		m_players = new GameObject[m_playerCount];
@@ -46,23 +48,29 @@ public class BlackJackGameController : MonoBehaviour
 
 	public void CyclePlayer()
 	{
-		++m_turn;
-
-		if (m_turn >= m_playerCount) m_turn -= m_playerCount;
-
-		int placeIndex = m_turn;
-		for(int i=0;i<m_playerCount;i++)
+		do
 		{
-			if (placeIndex >= m_playerCount) placeIndex -= m_playerCount;
-			m_players[placeIndex].transform.position = m_cycleSlots[i].position;
+			++m_turn;
 
-			++placeIndex;
-		}
+			if (m_turn >= m_playerCount) m_turn -= m_playerCount;
+
+			int placeIndex = m_turn;
+			for (int i = 0; i < m_playerCount; i++)
+			{
+				if (placeIndex >= m_playerCount) placeIndex -= m_playerCount;
+				m_players[placeIndex].transform.position = m_cycleSlots[i].position;
+
+				++placeIndex;
+			}
+		} while (!m_players[m_turn].GetComponent<BJPlayer>().m_active);
 	}
 
 	public void Hit()
 	{
-
+		Card hit = m_dealer.TakeFromTop();
+		hit.Flip();
+		m_players[m_turn].GetComponent<Player>().m_Hand.Add(hit);
+		CyclePlayer();
 	}
 
 	public void Stand()
@@ -89,15 +97,31 @@ public class BlackJackGameController : MonoBehaviour
 	{
 
 	}
+
+	public void OnNamePlayerChange()
+	{
+		string test = m_currentPlayerTxt.text.Replace(" ", "");
+		if(m_currentPlayerTxt.text.Length > 0 && test.Length > 0)
+		{
+			m_players[m_turn].GetComponent<Player>().ChangeName(m_currentPlayerTxt.text);
+		}
+	}
 }
 
 public class BJPlayer : Player
 {
 
 	public float m_bank = 0.0f;
-	public bool m_active = false;
+	public bool m_active = true;
 
 	public float m_handValue = 0.0f;
+
+	BlackJackGameController bjcontrol;
+
+	private void Start()
+	{
+		bjcontrol = GetComponentInParent<BlackJackGameController>();
+	}
 
 	private void Update()
 	{
@@ -105,6 +129,11 @@ public class BJPlayer : Player
 		{
 			m_handValue += (int)card.Value;
 		}
-	}
 
+		if(m_handValue >= 21)
+		{
+			m_active = false;
+			bjcontrol.CyclePlayer();
+		}
+	}
 }

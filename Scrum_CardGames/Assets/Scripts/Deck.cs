@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
 	public enum eDeckType { STANDARD, FULL, CUSTOM, }
 
 	[SerializeField] GameObject m_cardBase = null;
-	List<Card> m_cards;
+	public List<Card> m_cards;
 	[SerializeField] Sprite[] m_cardImages;
 	[SerializeField] int[] m_cardValues;
 	[SerializeField] Sprite m_cardBack;
